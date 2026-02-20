@@ -1,725 +1,322 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Cantina Chichilo de Buenos Aires</title>
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-
-        /* CONFIGURACIÓN BASADA EN TUS PROTOTIPOS */
-
         :root {
-
-            --rojo-chichilo: #FF0000;
-
-            --texto-oscuro: #333333;
-
-            --borde-suave: #dddddd;
-
+            --rojo-chichilo: #E63946;
+            --texto-oscuro: #1A1A1A;
+            --borde-suave: #E0E0E0;
+            --fondo-crema: #FDFBF7;
+            --fuente-titulos: 'Playfair Display', serif;
+            --fuente-cuerpo: 'Montserrat', sans-serif;
         }
-
-
 
         body {
-
-            font-family: 'Arial', sans-serif;
-
+            font-family: var(--fuente-cuerpo);
             margin: 0;
-
             color: var(--texto-oscuro);
-
-            background-color: #ffffff;
-
+            background-color: var(--fondo-crema);
             line-height: 1.6;
-
         }
 
+        h1, h2, h3, h4 { font-family: var(--fuente-titulos); }
 
-
-        /* NAVEGACIÓN (Prototipo 1) */
-
+        /* NAVEGACIÓN RESALTADA */
         .navbar {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
-            padding: 15px 5%;
-
+            padding: 15px 8%;
             border-bottom: 1px solid var(--borde-suave);
-
             position: sticky;
-
             top: 0;
-
-            background: white;
-
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
             z-index: 1000;
-
         }
-
-
 
         .logo-badge {
-
-            border: 2px solid var(--rojo-chichilo);
-
+            border: 2.5px solid var(--rojo-chichilo);
             color: var(--rojo-chichilo);
-
-            padding: 5px 15px;
-
-            font-weight: bold;
-
+            padding: 6px 20px;
+            font-weight: 700;
             border-radius: 50px;
-
-            font-size: 1.2rem;
-
+            font-size: 1.3rem;
             text-transform: uppercase;
-
         }
-
-
 
         .nav-links {
-
             display: flex;
-
             list-style: none;
-
-            margin: 0;
-
-            padding: 0;
-
+            margin: 0; padding: 0;
+            gap: 10px;
         }
-
-
 
         .nav-links li a {
-
             text-decoration: none;
-
             color: var(--texto-oscuro);
-
-            padding: 0 15px;
-
-            font-size: 0.9rem;
-
-            font-weight: bold;
-
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: all 0.3s ease;
         }
 
+        /* Efecto de resaltado al pasar el mouse */
+        .nav-links li a:hover {
+            color: var(--rojo-chichilo);
+            background: rgba(230, 57, 70, 0.08);
+        }
 
+        /* Clase para resaltar la sección actual */
+        .nav-links li a.active {
+            background-color: var(--rojo-chichilo);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+        }
 
-        /* PORTADA CON CARRUSEL DE FONDO (Prototipo 1) */
-
+        /* HERO CON TU CARRUSEL ORIGINAL */
         .hero {
-
             position: relative;
-
             width: 100%;
-
-            height: 500px;      
-
+            height: 75vh;      
             overflow: hidden;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             color: white;
-
             background-color: #333;
-
         }
-
-
 
         .hero-carousel {
-
             position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            z-index: 1;
-
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; 
         }
-
-
 
         .slide {
-
             position: absolute;
-
-            width: 100%;
-
-            height: 100%;
-
+            width: 100%; height: 100%;
             background-size: cover;
-
             background-position: center;
-
             opacity: 0;
-
             transition: opacity 1.5s ease-in-out;
-
         }
 
-
-
-        .slide.active {
-
-            opacity: 1;
-
-        }
-
-
+        .slide.active { opacity: 1; }
 
         .hero::after {
-
             content: '';
-
             position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            background: rgba(0, 0, 0, 0.4);
-
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); /* Capa oscura para que el texto se lea bien */
             z-index: 2;
-
         }
 
-
-
-        .hero-content {
-
-            position: relative;
-
-            z-index: 10;
-
+        .hero-content { 
+            position: relative; 
+            z-index: 10; 
             text-align: center;
-
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
+        .hero h1 { font-size: 4.5rem; margin: 0; letter-spacing: 2px; }
+        .hero p { font-size: 1.2rem; font-style: italic; }
 
-
-        .hero h1 {
-
-            font-size: 3.5rem;
-
-            margin: 0;
-
-        }
-
-
-
-        /* CARACTERÍSTICAS (Iconos Prototipo 1) */
-
+        /* CARACTERÍSTICAS */
         .features {
-
             display: grid;
-
             grid-template-columns: repeat(3, 1fr);
-
-            gap: 20px;
-
-            padding: 50px 10%;
-
-            text-align: center;
-
-        }
-
-
-
-        /* SECCIÓN NOSOTROS (Prototipo 2) */
-
-        .about {
-
+            gap: 30px;
             padding: 60px 10%;
-
-            background-color: #f9f9f9;
-
-        }
-
-
-
-        .about-header { text-align: center; margin-bottom: 40px; }
-
-
-
-        .about-grid {
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 40px;
-
-        }
-
-
-
-        /* SECCIÓN ESPECIALIDADES (Prototipo 3) */
-
-        .specialties {
-
-            padding: 60px 10%;
-
             text-align: center;
-
+            background: white;
         }
 
-
+        /* ESPECIALIDADES - 6 CUADROS */
+        .specialties { padding: 80px 10%; text-align: center; background: white; }
+        .specialties h2 { font-size: 2.8rem; margin-bottom: 40px; }
 
         .specialties-grid {
-
             display: grid;
-
             grid-template-columns: repeat(3, 1fr);
-
             gap: 30px;
-
-            margin-top: 40px;
-
         }
-
-
 
         .food-card {
-
-            border: 1px solid var(--borde-suave);
-
-            padding: 15px;
-
             background: white;
-
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-bottom: 4px solid transparent;
         }
 
-
-
-        /* Espacio para fotos según prototipo */
+        .food-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--rojo-chichilo);
+        }
 
         .food-img-container {
-
-            background-color: #eee;
-
-            height: 200px;
-
-            margin-bottom: 15px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: #999;
-
-            border: 1px dashed #ccc;
-
+            height: 220px;
+            background-color: #f0f0f0;
             background-size: cover;
-
             background-position: center;
-
         }
 
-
-
-        /* SECCIÓN HORARIO (Prototipo 4) */
-
-        .hours {
-
-            padding: 60px 10%;
-
-            text-align: center;
-
-            border-top: 1px solid var(--borde-suave);
-
-        }
-
-
-
-        /* CONTACTO Y MAPA (Prototipo 5) */
-
-        .contact {
-
-            padding: 60px 10%;
-
-            background-color: #fff;
-
-        }
-
-
-
-        .contact-container {
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 40px;
-
-            align-items: center;
-
-        }
-
-
-
-        .map-container {
-
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-
-            border-radius: 8px;
-
-            overflow: hidden;
-
-            line-height: 0;
-
-        }
-
-
-
-        footer {
-
-            text-align: center;
-
+        .food-card h4 {
             padding: 20px;
-
-            font-size: 0.8rem;
-
-            border-top: 1px solid var(--borde-suave);
-
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
+        /* SECCIONES RESTANTES */
+        .about { padding: 80px 15%; background-color: var(--fondo-crema); text-align: center; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; font-size: 1.1rem; }
+        .hours { padding: 80px 10%; text-align: center; background: var(--texto-oscuro); color: white; }
+        .hours h2 { color: var(--rojo-chichilo); font-size: 2.5rem; }
+        .contact { padding: 80px 10%; background: white; }
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .map-container { border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        footer { text-align: center; padding: 40px; font-weight: bold; border-top: 1px solid var(--borde-suave); font-size: 0.9rem; }
 
-
+        @media (max-width: 992px) { .specialties-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) {
-
-            .about-grid, .specialties-grid, .contact-container, .features {
-
-                grid-template-columns: 1fr;
-
-            }
-
-            .hero h1 { font-size: 2.5rem; }
-
+            .about-grid, .specialties-grid, .contact-container, .features { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.8rem; }
+            .navbar { flex-direction: column; gap: 15px; }
         }
-
     </style>
-
 </head>
-
 <body>
 
-
-
     <nav class="navbar">
-
         <div class="logo-badge">CHICHILO</div>
-
         <ul class="nav-links">
-
-            <li><a href="#inicio">INICIO</a></li>
-
+            <li><a href="#inicio" class="active">INICIO</a></li>
             <li><a href="#nosotros">NOSOTROS</a></li>
-
             <li><a href="#especialidades">ESPECIALIDADES</a></li>
-
             <li><a href="#horario">HORARIO</a></li>
-
             <li><a href="#contacto">UBICACIÓN</a></li>
-
         </ul>
-
     </nav>
 
-
-
     <header id="inicio" class="hero">
-
         <div class="hero-carousel">
-
             <div class="slide active" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/IMG_20171126_162849_089.jpg')"></div>
-
             <div class="slide" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/IMG_20181201_205117_779.jpg')"></div>
-
             <div class="slide" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/IMG_20180922_111203_459.jpg')"></div>
-
         </div>
-
-       
-
         <div class="hero-content">
-
             <h1>CANTINA CHICHILO</h1>
-
-            <p>Restaurante tradicional con especialidades de la casa</p>
-
+            <p>"Una familia para servirlo"</p>
         </div>
-
     </header>
 
-
-
     <section class="features">
-
-        <div class="feature-item">
-
-            <div style="font-size: 2rem; margin-bottom: 10px;">🍴</div>
-
-            <h3>Cocina tradicional</h3>
-
-            <p>Recetas caseras con ingredientes frescos todos los días.</p>
-
-        </div>
-
-        <div class="feature-item">
-
-            <div style="font-size: 2rem; margin-bottom: 10px;">👥</div>
-
-            <h3>Atención personalizada</h3>
-
-            <p>Nos enfocamos en tu experiencia.</p>
-
-        </div>
-
-        <div class="feature-item">
-
-            <div style="font-size: 2rem; margin-bottom: 10px;">📍</div>
-
-            <h3>El lugar preferido</h3>
-
-            <p>Un clásico de la zona.</p>
-
-        </div>
-
+        <div class="feature-item"><div style="font-size: 2.5rem;">🍴</div><h3>Cocina tradicional</h3><p>Recetas caseras con ingredientes frescos todos los días.</p></div>
+        <div class="feature-item"><div style="font-size: 2.5rem;">👥</div><h3>Atención personalizada</h3><p>Nos enfocamos en tu experiencia familiar.</p></div>
+        <div class="feature-item"><div style="font-size: 2.5rem;">📍</div><h3>El lugar preferido</h3><p>Un clásico de Paternal desde 1956.</p></div>
     </section>
-
-
 
     <section id="nosotros" class="about">
-
-        <div class="about-header">
-
-            <h2>Desde 1956</h2>
-
-            <p><em>"Una familia para servirlo"</em></p>
-
-        </div>
-
+        <h2>Desde 1956</h2>
         <div class="about-grid">
-
-            <div>
-
-                <p>Cantina Chichilo nació como un proyecto familiar enfocado en ofrecer comida casera y trato cercano.</p>
-
-                <p>Con el paso de los años, la tradición se ha mantenido gracias al trabajo continuo de la familia.</p>
-
-            </div>
-
-            <div>
-
-                <p>El lugar conserva un estilo auténtico que refleja su historia y personalidad.</p>
-
-                <p>Cada visita busca ofrecer una experiencia cálida representativa de la cocina tradicional.</p>
-
-            </div>
-
+            <div><p>Cantina Chichilo nació como un proyecto familiar enfocado en ofrecer comida casera y trato cercano.</p></div>
+            <div><p>El lugar conserva un estilo auténtico que refleja su historia y personalidad representativa.</p></div>
         </div>
-
     </section>
-
-
 
     <section id="especialidades" class="specialties">
-
-        <h2>Especialidades</h2>
-
+        <h2>Nuestras Especialidades</h2>
         <div class="specialties-grid">
-
             <div class="food-card">
-
                 <div class="food-img-container" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/IMG_20190104_144457_299.jpg')"></div>
-
                 <h4>FUSILES AL FERRETTO</h4>
-
             </div>
-
             <div class="food-card">
-
                 <div class="food-img-container" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/IMG_20190113_213622_185.jpg')"></div>
-
                 <h4>RANAS A LA PROVENZAL</h4>
-
             </div>
-
             <div class="food-card">
-
                 <div class="food-img-container" style="background-image: url('Cantina%20Chichilo%20de%20Buenos%20Aires_files/DSC03004_small2.JPG')"></div>
-
                 <h4>CARACOLES A LA BORDALEZA</h4>
-
             </div>
-
             <div class="food-card">
-
-                <div class="food-img-container">FOTO RABAS</div>
-
+                <div class="food-img-container" style="background-color: #eee; display: flex; align-items: center; justify-content: center; color: #999;">FOTO RABAS</div>
                 <h4>RABAS A LA CALABRIA</h4>
-
             </div>
-
             <div class="food-card">
-
-                <div class="food-img-container">FOTO MERLUZA</div>
-
+                <div class="food-img-container" style="background-color: #eee; display: flex; align-items: center; justify-content: center; color: #999;">FOTO MERLUZA</div>
                 <h4>MERLUZA AL AJILLO</h4>
-
             </div>
-
             <div class="food-card">
-
-                <div class="food-img-container">FOTO GAMBAS</div>
-
+                <div class="food-img-container" style="background-color: #eee; display: flex; align-items: center; justify-content: center; color: #999;">FOTO GAMBAS</div>
                 <h4>GAMBAS AL AJILLO</h4>
-
             </div>
-
         </div>
-
     </section>
-
-
 
     <section id="horario" class="hours">
-
         <h2>Horarios de atención</h2>
-
-        <div style="margin-bottom: 20px;">
-
-            <h3>Servicio de cena</h3>
-
-            <p>Jueves a sábado</p>
-
-            <p><strong>20:30 – 23:30 HRS</strong></p>
-
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px;">
+            <div><h3>Cena</h3><p>Jueves a sábado<br><strong>20:30 – 23:30 HRS</strong></p></div>
+            <div><h3>Almuerzo</h3><p>Sábados y domingos<br><strong>12:30 – 14:30 HRS</strong></p></div>
         </div>
-
-        <div>
-
-            <h3>Servicio de almuerzo</h3>
-
-            <p>Sábados y domingos</p>
-
-            <p><strong>12:30 – 14:30 HRS</strong></p>
-
-        </div>
-
     </section>
 
-
-
-    <section id="contacto" class="contact">
-
+     <section id="contacto" class="contact">
         <h2 style="text-align: center; margin-bottom: 40px;">Cómo llegar</h2>
-
         <div class="contact-container">
-
             <div class="contact-details">
-
-                <p><strong>📍 Dirección:</strong><br>
-
-                Camarones 1901, Paternal, CABA.</p>
-
-                <p><strong>📞 Teléfono:</strong><br>
-
-                (011) 4584-1263 / 4581-1984.</p>
-
-                <p><strong>✉️ Correo:</strong><br>
-
-                cantinachichilo@cantinachichilo.com.ar.</p>
-
+                <p><strong>📍 Dirección:</strong><br>Camarones 1901, Paternal, CABA.</p>
+                <p><strong>📞 Teléfono:</strong><br>(011) 4584-1263 / 4581-1984.</p>
+                <p><strong>✉️ Correo:</strong><br>cantinachichilo@cantinachichilo.com.ar.</p>
             </div>
-
-           <div class="map-container">
-
-    <iframe
-
-        src="https://maps.google.com/maps?q=Cantina%20Chichilo%20de%20Buenos%20Aires%20Camarones%201901&t=&z=15&ie=UTF8&iwloc=&output=embed"
-
-        width="100%"
-
-        height="450"
-
-        style="border:0; border-radius: 8px;"
-
-        allowfullscreen=""
-
+            <div class="map-container">
+               <iframe 
+        src="https://maps.google.com/maps?q=Cantina%20Chichilo%20de%20Buenos%20Aires%20Camarones%201901&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+        width="100%" 
+        height="450" 
+        style="border:0; border-radius: 8px;" 
+        allowfullscreen="" 
         loading="lazy">
-
     </iframe>
-
-</div>
-
+            </div>
+        </div>
     </section>
 
-
-
-    <footer>
-
-        © 2026 Cantina Chichilo de Buenos Aires.
-
-    </footer>
-
-
+    <footer>© 2026 Cantina Chichilo de Buenos Aires.</footer>
 
     <script>
+        // Lógica del menú resaltar
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
 
+        // Lógica del Carrusel (4 segundos por slide)
         let currentSlide = 0;
-
         const slides = document.querySelectorAll('.slide');
 
-
-
         function nextSlide() {
-
             slides[currentSlide].classList.remove('active');
-
             currentSlide = (currentSlide + 1) % slides.length;
-
             slides[currentSlide].classList.add('active');
-
         }
 
-
-
         setInterval(nextSlide, 4000);
-
     </script>
-
 </body>
-
 </html>
