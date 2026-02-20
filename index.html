@@ -297,26 +297,54 @@
     <footer>© 2026 Cantina Chichilo de Buenos Aires.</footer>
 
     <script>
-        // Lógica del menú resaltar
-        const links = document.querySelectorAll('.nav-links a');
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                links.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
+    // === 1. LÓGICA DEL CARRUSEL (4 segundos por slide) ===
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+    setInterval(nextSlide, 4000);
+
+    // === 2. LÓGICA DE SCROLLSPY (Resaltado automático al deslizar) ===
+    const secciones = document.querySelectorAll('header[id], section[id]');
+    const enlacesNav = document.querySelectorAll('.nav-links a');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-25% 0px -65% 0px', // Detecta la sección cuando está cerca del centro
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const idActual = entry.target.getAttribute('id');
+                
+                enlacesNav.forEach((link) => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${idActual}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    secciones.forEach((seccion) => observer.observe(seccion));
+
+    // === 3. OPCIONAL: SCROLL SUAVE AL HACER CLIC ===
+    // Esto evita que la página dé un salto brusco al elegir una opción del menú
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
-
-        // Lógica del Carrusel (4 segundos por slide)
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        setInterval(nextSlide, 4000);
-    </script>
+    });
+</script>
 </body>
 </html>
